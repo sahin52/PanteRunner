@@ -16,9 +16,20 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     bool isPlaying = true;
     int xRef = 0;
     int yRef = 0;
+    Vector3 startingPos;
+
+
+
+    [SerializeField]
+    PR_GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<PR_GameManager>();
+        }
+        startingPos = transform.position;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         xRef = Animator.StringToHash("X");
@@ -28,7 +39,8 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
     void FixedUpdate()
     {
-        Move();//TODO inputu update'te al, burada sadece fizik calistir
+        if(gameManager.gameStarted)
+            Move();//TODO inputu update'te al, burada sadece fizik calistir
     }
     void Update()
     {
@@ -67,6 +79,17 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
     }
 
+    void OnCollisionEnter(Collision col)
+    {
+        print("collided with "+col.collider.tag);
+        if(col.collider.tag == Constants.Tags.Obstacle)
+        {
+            print("collided");
+            transform.position = startingPos;
+            gameManager.updateGameState();
+        }
+
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -82,5 +105,13 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     public void OnPointerUp(PointerEventData eventData)
     {
         //throw new System.NotImplementedException();
+    }
+
+    void OnTriggerEnter(Collider triggeringCollider)
+    {
+        if(triggeringCollider.tag == Constants.Tags.Finish)
+        {
+            gameManager.gameFinished = true;
+        }
     }
 }
