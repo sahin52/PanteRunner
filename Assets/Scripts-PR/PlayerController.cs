@@ -111,7 +111,12 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     {
         if(triggeringCollider.tag == Constants.Tags.Finish)
         {
-            gameManager.gameFinished = true;
+            gameManager.onFinish();
+            print("finished");
         }
+    }
+    public void Restart()
+    {
+        transform.position = startingPos;
     }
 }

@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class PR_GameManager : MonoBehaviour
 {
     public bool gameStarted = false;
     [SerializeField]
-    Text text;
+    Text startButtonText;
+    [SerializeField]
+    Text endGameText;
+    [SerializeField]
+    Button finishGameButton;
+    [SerializeField]
+    PlayerController Player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (Player == null)
+            Player = FindObjectOfType<PlayerController>();
+        endGameText.text = "";
+        finishGameButton.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -25,12 +35,23 @@ public class GameManager : MonoBehaviour
         if (gameStarted)
         {
             gameStarted = false;
-            text.text = "start game";
+            startButtonText.text = "start game";
         }
         else
         {
             gameStarted = true;
-            text.text = "pause game";
+            startButtonText.text = "pause game";
         }
+    }
+    public void onFinish()
+    {
+        endGameText.text = "Bolum bitti\nTebrikler";
+        finishGameButton.gameObject.SetActive(true);
+    }
+    public void Restart()
+    {
+        Player.Restart();
+        finishGameButton.gameObject.SetActive(false);
+        endGameText.text = "";
     }
 }
