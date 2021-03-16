@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler
+public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler,IGameManagement
 {
     
     [SerializeField]
@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         else
         {
             rb.MovePosition(Vector3.forward * forwardSpeed + transform.position);
-           // anim.SetFloat(yRef, 0);
+            anim.SetFloat(xRef, 0);
+            // anim.SetFloat(yRef, 0);
         }
 
     }
@@ -118,5 +119,35 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     public void Restart()
     {
         transform.position = startingPos;
+    }
+
+    public void OnStart()
+    {
+        print("Player Controller On Start");
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnPlay()
+    {
+        print("Player Controller On Play");
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnPause()
+    {
+        print("Player Controller On Pause");
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnLose()
+    {
+        print("Player Controller On Lose");
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnFinish()
+    {
+        print("Player Controller On Finish");
+        //throw new System.NotImplementedException();
     }
 }
