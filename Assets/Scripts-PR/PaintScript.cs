@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,14 @@ public class PaintScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     void Start()
     {
+        CreateTexture();
+    }
+
+    private void CreateTexture()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
         texture = new Texture2D(width, height);
-        for(int i = 0; i < width; i++)
+        for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
@@ -20,7 +26,7 @@ public class PaintScript : MonoBehaviour
             }
         }
         texture.Apply();
-        GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture,new Rect(0,0, width, height),new Vector2(0.5f,0.5f));
+        GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
     }
 
     // Update is called once per frame
@@ -29,6 +35,7 @@ public class PaintScript : MonoBehaviour
         print("slem");
        Paint();
     }
+    
     void Paint()
     {
         if (Input.touchCount > 0)
@@ -36,7 +43,7 @@ public class PaintScript : MonoBehaviour
             //touched
             var touch = Input.GetTouch(0);
             int a = 128;
-            
+            var pixels = texture.GetPixels();
             for(int i = 0; i < a; i++)
             {
                 for(int j = 0; j < a; j++)
