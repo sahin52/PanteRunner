@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
     private void Move()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             //touched
             var touch = Input.GetTouch(0);
