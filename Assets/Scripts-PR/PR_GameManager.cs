@@ -13,10 +13,13 @@ public class PR_GameManager : MonoBehaviour
     [SerializeField]
     PlayerController Player;
 
+    public static PR_GameManager gameManager;
+
     IGameManagement[] objectsAttachedToGameManagement;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<PR_GameManager>();
         var a = FindObjectsOfType<Object>().OfType<IGameManagement>();
         print(a);
         objectsAttachedToGameManagement = a.ToArray();

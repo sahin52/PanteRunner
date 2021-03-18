@@ -34,12 +34,13 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         anim = GetComponent<Animator>();
         xRef = Animator.StringToHash("X");
         yRef = Animator.StringToHash("Y");
-        
+        anim.SetFloat(yRef, 1);
     }
 
     void FixedUpdate()
     {
-        if(gameManager.gameStarted)
+        
+        if (gameManager.gameStarted)
             Move();//TODO inputu update'te al, burada sadece fizik calistir
     }
     void Update()
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         {
             rb.MovePosition(Vector3.forward * forwardSpeed + transform.position);
             anim.SetFloat(xRef, 0);
-            // anim.SetFloat(yRef, 0);
+            
         }
 
     }
@@ -88,6 +89,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
             print("collided");
             transform.position = startingPos;
             gameManager.updateGameState();
+            gameManager.onLose();
         }
 
     }
