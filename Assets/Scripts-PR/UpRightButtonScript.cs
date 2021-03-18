@@ -15,13 +15,18 @@ public class UpRightButtonScript : MonoBehaviour,IGameManagement
     {
         buttonImage = this.GetComponent<Image>();
         button = GetComponent<Button>();
-        button.onClick.AddListener(changeBGImage);
+        //button.onClick.AddListener(changeBGImage);
+        button.onClick.AddListener(pauseGame);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    void pauseGame()
+    {
+        PR_GameManager.gameManager.onPause();
     }
     void changeBGImage()
     {

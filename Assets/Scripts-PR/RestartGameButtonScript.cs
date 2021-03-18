@@ -36,6 +36,7 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
         textAboveButton.text = "Congragulations!";
         textOnButton.text = "Restart";
         SetIsActive(true);
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(startGame);
         //throw new System.NotImplementedException();
     }
@@ -46,6 +47,7 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
         textAboveButton.text = "Unfortunately Lost!";
         textOnButton.text = "Restart";
         SetIsActive(true);
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(startGame);
         //throw new System.NotImplementedException();
     }
@@ -56,6 +58,7 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
         textAboveButton.text = "Game Paused!";
         textOnButton.text = "Continue";
         SetIsActive(true);
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(continueGame);
     //throw new System.NotImplementedException();
     }
@@ -73,6 +76,7 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
         textOnButton.text = "Start";
         print("Restart game button On start");
         SetIsActive(true);
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(continueGame);
     //throw new System.NotImplementedException();
     }

@@ -37,20 +37,6 @@ public class PR_GameManager : MonoBehaviour
         
     }
 
-    public void updateGameState()
-    {
-        if (gameStarted)
-        {
-            gameStarted = false;
-            //startButtonText.text = "start game";
-        }
-        else
-        {
-            gameStarted = true;
-            //startButtonText.text = "pause game";
-        }
-    }
-
     public void Restart()
     {
         Player.Restart();
