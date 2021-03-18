@@ -12,12 +12,13 @@ public class OnClickLoadScene : MonoBehaviour
     private int sceneIndex = 0;
     void Start()
     {
-        Button btn = this.GetComponent<Button>();
-        btn.onClick.AddListener(LoadSceneWithNo);
+        yourButton = this.GetComponent<Button>();
+        yourButton.onClick.AddListener(LoadSceneWithNo);
     }
 
     void LoadSceneWithNo()
     {
+        print("clicked");
         SceneManager.LoadScene(sceneIndex);
     }
 }

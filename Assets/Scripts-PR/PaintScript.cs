@@ -11,7 +11,11 @@ public class PaintScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     void Start()
     {
-        CreateTexture();
+        width = (int)GetComponent<SpriteRenderer>().sprite.texture.width; //Screen.width*2/5;
+        height = (int)GetComponent<SpriteRenderer>().sprite.texture.height; //Screen.height*2/5;
+        texture = GetComponent<SpriteRenderer>().sprite.texture;
+
+        //CreateTexture();
     }
 
     private void CreateTexture()
@@ -32,7 +36,7 @@ public class PaintScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("slem");
+        //print("slem");
        Paint();
     }
     
@@ -40,13 +44,37 @@ public class PaintScript : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            //RaycastHit hit;
+            //if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            //{
+            //    print("didn't touch anything!");
+            //    return;
+            //}
+            //Renderer rend = hit.transform.GetComponent<Renderer>();
+            //MeshCollider meshCollider = hit.collider as MeshCollider;
+
+            //if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null)
+            //{
+            //    print("bisiler null");
+
+            //    return;
+            //}
+
+            //Texture2D tex = rend.material.mainTexture as Texture2D;
+            //Vector2 pixelUV = hit.textureCoord;
+            //pixelUV.x *= tex.width;
+            //pixelUV.y *= tex.height;
+            //tex.SetPixel((int)pixelUV.x, (int)pixelUV.y, Color.black);
+            //tex.Apply();
+
+
             //touched
             var touch = Input.GetTouch(0);
             int a = 128;
             var pixels = texture.GetPixels();
-            for(int i = 0; i < a; i++)
+            for (int i = 0; i < a; i++)
             {
-                for(int j = 0; j < a; j++)
+                for (int j = 0; j < a; j++)
                 {
                     texture.SetPixel(i, j, Color.black);
                 }
@@ -54,7 +82,7 @@ public class PaintScript : MonoBehaviour
             texture.Apply();
             GetComponent<SpriteRenderer>().sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
 
-
+            print("en sondayim");
         }
     }
     void OnMouseUp()
