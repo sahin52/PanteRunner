@@ -28,7 +28,7 @@ public class PR_GameManager : MonoBehaviour
             Player = FindObjectOfType<PlayerController>();
         endGameText.text = "";
         finishGameButton.gameObject.SetActive(false);
-
+        onStart();
     }
 
     // Update is called once per frame
@@ -56,9 +56,11 @@ public class PR_GameManager : MonoBehaviour
         Player.Restart();
         finishGameButton.gameObject.SetActive(false);
         endGameText.text = "";
+        gameStarted = true;
     }
     public void onStart()
     {
+        gameStarted = false;
         foreach(var temp in objectsAttachedToGameManagement)
         {
             temp.OnStart();
@@ -66,6 +68,7 @@ public class PR_GameManager : MonoBehaviour
     }
     public void onPlay()
     {
+        gameStarted = true;
         foreach (var temp in objectsAttachedToGameManagement)
         {
             temp.OnPlay();
@@ -73,6 +76,7 @@ public class PR_GameManager : MonoBehaviour
     }
     public void onPause()
     {
+        gameStarted = false;
         foreach (var temp in objectsAttachedToGameManagement)
         {
             temp.OnPause();
@@ -80,15 +84,15 @@ public class PR_GameManager : MonoBehaviour
     }
     public void onFinish()
     {
+        gameStarted = false;
         foreach (var temp in objectsAttachedToGameManagement)
         {
             temp.OnFinish();
         }
-        endGameText.text = "Bolum bitti\nTebrikler";
-        finishGameButton.gameObject.SetActive(true);
     }
     public void onLose()
     {
+        gameStarted = false;
         foreach (var temp in objectsAttachedToGameManagement)
         {
             temp.OnLose();

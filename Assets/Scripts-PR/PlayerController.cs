@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     {
         
         if (gameManager.gameStarted)
-            Move();//TODO inputu update'te al, burada sadece fizik calistir
+            Move();                 //TODO inputu update'te al, burada sadece fizik calistir
     }
     void Update()
     {
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         {
             print("collided");
             transform.position = startingPos;
-            gameManager.updateGameState();
             gameManager.onLose();
         }
 

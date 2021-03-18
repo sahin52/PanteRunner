@@ -43,25 +43,28 @@ public class UpRightButtonScript : MonoBehaviour,IGameManagement
 
     public void OnLose()
     {
+        button.gameObject.SetActive(false);
         //throw new System.NotImplementedException();
     }
 
     public void OnPause()
     {
         buttonImage.sprite = playImage;
+        button.gameObject.SetActive(false);
         //throw new System.NotImplementedException();
     }
 
     public void OnPlay()
     {
         buttonImage.sprite = pauseImage;
+        button.gameObject.SetActive(true);
         //throw new System.NotImplementedException();
     }
 
     public void OnStart()
     {
         buttonImage.sprite = playImage;
-        button.gameObject.SetActive(true);
+        button.gameObject.SetActive(false);
         //throw new System.NotImplementedException();
     }
 }

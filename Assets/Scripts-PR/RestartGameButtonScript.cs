@@ -7,6 +7,8 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
 {
     [SerializeField]
     Button button;
+    [SerializeField]
+    Text textOnButton,textAboveButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,36 +21,43 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
     {
         button.gameObject.SetActive(value);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     void startGame()
     {
         PR_GameManager.gameManager.onStart();
     }
+    void continueGame()
+    {
+        PR_GameManager.gameManager.onPlay();
+    }
     public void OnFinish()
     {
         print("Restart game button On finish");
+        textAboveButton.text = "Congragulations!";
+        textOnButton.text = "Restart";
         SetIsActive(true);
+        button.onClick.AddListener(startGame);
         //throw new System.NotImplementedException();
     }
 
     public void OnLose()
     {
         print("Restart game button On Lose");
+        textAboveButton.text = "Unfortunately Lost!";
+        textOnButton.text = "Restart";
         SetIsActive(true);
+        button.onClick.AddListener(startGame);
         //throw new System.NotImplementedException();
     }
 
     public void OnPause()
     {
         print("Restart game button On Pause");
-        SetIsActive(false);
-        //throw new System.NotImplementedException();
+        textAboveButton.text = "Game Paused!";
+        textOnButton.text = "Continue";
+        SetIsActive(true);
+        button.onClick.AddListener(continueGame);
+    //throw new System.NotImplementedException();
     }
 
     public void OnPlay()
@@ -60,9 +69,12 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
 
     public void OnStart()
     {
+        textAboveButton.text = "Avoid The Obstacles!";
+        textOnButton.text = "Start";
         print("Restart game button On start");
         SetIsActive(true);
-        //throw new System.NotImplementedException();
+        button.onClick.AddListener(continueGame);
+    //throw new System.NotImplementedException();
     }
 
 }
