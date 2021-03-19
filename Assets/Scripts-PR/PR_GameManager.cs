@@ -26,8 +26,6 @@ public class PR_GameManager : MonoBehaviour
         print("printe");
         if (Player == null)
             Player = FindObjectOfType<PlayerController>();
-        endGameText.text = "";
-        finishGameButton.gameObject.SetActive(false);
         onStart();
     }
 

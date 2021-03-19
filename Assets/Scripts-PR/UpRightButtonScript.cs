@@ -11,12 +11,16 @@ public class UpRightButtonScript : MonoBehaviour,IGameManagement
     private Button button;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Awake() {
         buttonImage = this.GetComponent<Image>();
         button = GetComponent<Button>();
-        //button.onClick.AddListener(changeBGImage);
         button.onClick.AddListener(pauseGame);
+    }
+    void Start()
+    {
+        
+        //button.onClick.AddListener(changeBGImage);
+        
     }
 
     // Update is called once per frame

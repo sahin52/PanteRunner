@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d9c038884070943b8abc6fcb33e2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 162227845}
+  filterTexture: {fileID: 0}
 --- !u!1001 &1150518349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,9 +443,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 308053392819467239, guid: 5803d6b0dec33104688212c5ba400a35,
         type: 3}
-      propertyPath: cam
+      propertyPath: filterTexture
       value: 
-      objectReference: {fileID: 162227845}
+      objectReference: {fileID: 2800000, guid: b91a825a7e73ce2449cedf76e9cbab88, type: 3}
     - target: {fileID: 308053392819467240, guid: 5803d6b0dec33104688212c5ba400a35,
         type: 3}
       propertyPath: m_RootOrder

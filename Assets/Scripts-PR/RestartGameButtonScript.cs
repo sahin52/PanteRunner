@@ -28,7 +28,12 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
     }
     void continueGame()
     {
+//#if UNITY_EDITOR
+//        UnityEditor.EditorApplication.isPaused = true;
+//#endif
         PR_GameManager.gameManager.onPlay();
+
+
     }
     public void OnFinish()
     {

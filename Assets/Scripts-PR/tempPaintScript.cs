@@ -2,8 +2,8 @@
 
 public class tempPaintScript : MonoBehaviour
 {
-    public Camera cam;
-
+    private Camera cam;
+    public Texture2D filterTexture;
     void Start()
     {
         cam = Camera.main;
@@ -34,7 +34,7 @@ public class tempPaintScript : MonoBehaviour
 
     void Paint()
     {
-        if (Input.touchCount==0)
+        if (Input.touchCount == 0)
             return;
 
         RaycastHit hit;
@@ -66,7 +66,33 @@ public class tempPaintScript : MonoBehaviour
         Vector2 pixelUV = hit.textureCoord;
         pixelUV.x *= tex.width;
         pixelUV.y *= tex.height;
+        paintAroundPixel(ref tex, ref pixelUV);
+    }
 
+    private void paintAroundPixel(ref Texture2D tex,ref  Vector2 pixelUV)
+    {
+        var pixels = tex.GetPixels();
+        var width = tex.width;
+        var height = tex.height;
+
+        for(int i = 0; i < filterTexture.width; i++)
+        {
+            for(int j = 0; j < filterTexture.height; j++)
+            {
+                pixels[width * i + height] = Color.red;
+            }
+        }
+        //for(int i =(int) Mathf.Clamp((int)pixelUV.x- filterTexture.width, 0, tex.width); i < Mathf.Clamp((int)pixelUV.x + filterTexture.width, 0, tex.width); i++)
+        //{
+
+        //}
+        tex.SetPixels(pixels);
+        //tex.SetPixel((int)pixelUV.x, (int)pixelUV.y, Color.red);
+        tex.Apply();
+        print("applied");
+    }
+    private void paintPixel(Texture2D tex, Vector2 pixelUV)
+    {
         tex.SetPixel((int)pixelUV.x, (int)pixelUV.y, Color.red);
         tex.Apply();
     }

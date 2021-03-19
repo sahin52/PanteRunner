@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
 public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler,IGameManagement
 {
@@ -16,12 +17,17 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     bool isPlaying = true;
     int xRef = 0;
     int yRef = 0;
+    int zRef = 0;
+    int jumpRef;
     Vector3 startingPos;
 
 
 
     [SerializeField]
     PR_GameManager gameManager;
+    [SerializeField]
+    private float upwardsSpeed = 350f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +40,8 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         anim = GetComponent<Animator>();
         xRef = Animator.StringToHash("X");
         yRef = Animator.StringToHash("Y");
+        zRef = Animator.StringToHash("Z");
+        jumpRef = Animator.StringToHash("Jump");
         anim.SetFloat(yRef, 1);
     }
 
@@ -45,11 +53,20 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     }
     void Update()
     {
+        anim.SetFloat(zRef, rb.velocity.y);
        //curve.Evaluate()
     }
 
     private void Move()
     {
+        if (Input.GetKey(KeyCode.Space)&& rb.velocity.y<0.01f && rb.velocity.y > -0.1f)
+        {
+            print("entered space");
+            rb.AddForce(Vector3.up*upwardsSpeed);
+            anim.SetFloat(jumpRef, 1);
+            var stopJump = StopAnimAfterJump(0.5f);
+            StartCoroutine(stopJump);
+        }
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             //touched
@@ -60,13 +77,13 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
                 if (deltaPos.x < 0)
                 {   
-                    rb.MovePosition(Vector3.left * speed + transform.position + Vector3.forward * forwardSpeed);
+                    rb.MovePosition(new Vector3(touch.deltaPosition.x,0,0) * speed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
                     anim.SetFloat(xRef, -1);
                     print("sol");
                 }
                 else
                 {
-                    rb.MovePosition(Vector3.right * speed + transform.position + Vector3.forward * forwardSpeed);
+                    rb.MovePosition(new Vector3(touch.deltaPosition.x, 0, 0) * speed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
                     anim.SetFloat(xRef, 1);
                     print("sag");
                 }     
@@ -87,12 +104,15 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         if(col.collider.tag == Constants.Tags.Obstacle)
         {
             print("collided");
-            transform.position = startingPos;
             gameManager.onLose();
         }
-
     }
 
+    private IEnumerator StopAnimAfterJump(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        anim.SetFloat(jumpRef,-1);
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         
@@ -124,30 +144,37 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
     public void OnStart()
     {
+        gameObject.GetComponent<Animator>().enabled = false;
+        transform.position = startingPos;
         print("Player Controller On Start");
         //throw new System.NotImplementedException();
     }
 
     public void OnPlay()
     {
+        gameObject.GetComponent<Animator>().enabled = true;
         print("Player Controller On Play");
         //throw new System.NotImplementedException();
     }
 
     public void OnPause()
     {
+        gameObject.GetComponent<Animator>().enabled = false;
         print("Player Controller On Pause");
         //throw new System.NotImplementedException();
     }
 
     public void OnLose()
     {
+        gameObject.GetComponent<Animator>().enabled = false;
+        transform.position = startingPos;
         print("Player Controller On Lose");
         //throw new System.NotImplementedException();
     }
 
     public void OnFinish()
     {
+        gameObject.GetComponent<Animator>().enabled = false;
         print("Player Controller On Finish");
         //throw new System.NotImplementedException();
     }
