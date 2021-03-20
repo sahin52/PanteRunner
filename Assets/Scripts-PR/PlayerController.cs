@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownHandler,IPointerUpHandler,IGameManagement
+public class PlayerController : MonoBehaviour,IGameManagement
 {
     
     [SerializeField]
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         }
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
+         
             //touched
             var touch = Input.GetTouch(0);
             if(touch.phase == TouchPhase.Moved)
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
         }
         else
         {
+            
             rb.MovePosition(Vector3.forward * forwardSpeed + transform.position);
             anim.SetFloat(xRef, 0);
             
@@ -112,21 +114,6 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
     {
         yield return new WaitForSeconds(waitTime);
         anim.SetFloat(jumpRef,-1);
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //throw new System.NotImplementedException();
     }
 
     void OnTriggerEnter(Collider triggeringCollider)
@@ -174,7 +161,8 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
     public void OnFinish()
     {
-        gameObject.GetComponent<Animator>().enabled = false;
+        //gameObject.GetComponent<Animator>().enabled = false;
+        anim.SetFloat(yRef, 0);
         print("Player Controller On Finish");
         //throw new System.NotImplementedException();
     }

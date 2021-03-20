@@ -10,5 +10,8 @@ public class Constants
         public static string Obstacle = "Obstacle";
         public static string Finish = "Finish";
     }
-
+    public static class Prefs
+    {
+        public static string Volume = "Volume";
+    }
 }
