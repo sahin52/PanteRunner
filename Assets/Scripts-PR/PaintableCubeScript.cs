@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class tempPaintScript : MonoBehaviour
+public class PaintableCubeScript : MonoBehaviour
 {
     private Camera cam;
     public Texture2D filterTexture;
@@ -12,14 +12,18 @@ public class tempPaintScript : MonoBehaviour
         Clear();
 
     }
-
+    //void FixedUpdate() 
+    //{
+    //    //Paint();
+    //    //print(CalculatePercentage());
+    //}
     void Update()
     {
         Paint();
         print(CalculatePercentage());
     }
 
-    private float CalculatePercentage()
+    public float CalculatePercentage()
     {
         var len = pixels.Length;
         int reds = 0;
@@ -34,7 +38,7 @@ public class tempPaintScript : MonoBehaviour
         //throw new NotImplementedException();
     }
 
-    void Clear()
+    public void Clear()
     {
         Renderer rend = GetComponent<Renderer>();
         Texture2D tex = rend.material.mainTexture as Texture2D;
@@ -52,19 +56,24 @@ public class tempPaintScript : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            print("there is touch");
             return Input.GetTouch(0).position;
         }
         if (Input.GetMouseButton(0))
         {
+            print("there is mouse button down");
             return Input.mousePosition;
         }
+        print("no input");
         return Vector2.zero;
     }
     void Paint()
     {
+        print("painting");
         var inputPoint = getInputPoint();
-        if(inputPoint == Vector2.zero)
+        if(inputPoint.x == Vector2.zero.x && inputPoint.y == Vector2.zero.y)
         {
+            print("no input");
             return;
         }
         RaycastHit hit;
@@ -103,6 +112,7 @@ public class tempPaintScript : MonoBehaviour
     private void PaintWithFilter(Texture2D tex, Vector2 pixelUV)
     {
 
+        //var biint = pixelX - filterWidth / 2;
         //throw new NotImplementedException();
     }
 

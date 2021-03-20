@@ -11,7 +11,14 @@ public class PlayerInputManager : MonoBehaviour,IInputManager
     Vector2 mouseDeltaPosition = Vector2.zero;
     private Vector3 lastPos = Vector3.zero;
 
+    private bool isThereTouchOnScreen = false;
     Touch touch;
+    float touchStart;
+
+
+    bool isMouseDown=false;
+
+    float mouseStart;
 
     public bool jumpInput()
     {
@@ -41,29 +48,17 @@ public class PlayerInputManager : MonoBehaviour,IInputManager
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         SetMouseDeltaPos();
-        HandleLeftRight();
-        SetJump();
+        HandleLeftRight();//DONE
+        SetJumpAndSlide();
     }
-    private void SetJump()
-    {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            jump = true;
-            return;
-        }
-        //if()TODO
-
-
-
-
-    }
+    
     private void SetMouseDeltaPos()
     {
         if (Input.GetMouseButtonDown(0))
@@ -107,8 +102,67 @@ public class PlayerInputManager : MonoBehaviour,IInputManager
         return;
     }
 
+    private void SetJumpAndSlide()
+    {
+        //Getting from keyboard
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            jump = true;
+            return;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            slide = true;
+            return;
+        }
+
+        //Getting from screen touch
+        if (!isThereTouchOnScreen && Input.touchCount > 0)
+        {
+            isThereTouchOnScreen = true;
+            this.touch = Input.GetTouch(0);
+            touchStart = this.touch.position.y;
+            return;
+        }
+        if (isThereTouchOnScreen && (Input.touchCount == 0))
+        {
+            isThereTouchOnScreen = false;
+            if (this.touch.position.y - touchStart > 100f)
+            {
+                jump = true;
+            }
+            if (this.touch.position.y - touchStart < -100f)
+            {
+                slide = true;
+            }
+            return;
+        }
 
 
+        //Getting from mouse input
+
+        if (!isMouseDown && Input.GetMouseButton(0))
+        {
+            mouseStart = Input.mousePosition.y;
+            isMouseDown = true;
+            return;
+        }
+
+        if (isMouseDown && !Input.GetMouseButton(0))
+        {
+            isMouseDown = false;
+            if (Input.mousePosition.y - mouseStart > 100f)
+            {
+                jump = true;
+            }
+            if (Input.mousePosition.y - mouseStart < -100f)
+            {
+                slide = true;
+            }
+            return;
+        }
+    }
+    
 
 
 

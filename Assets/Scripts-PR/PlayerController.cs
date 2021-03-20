@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 {
     
     [SerializeField]
-    float speed = 1f;
+    float horizontalSpeed = 10f;
     [SerializeField]
     float forwardSpeed = 1f;
 
@@ -77,13 +77,13 @@ public class PlayerController : MonoBehaviour,IPointerClickHandler,IPointerDownH
 
                 if (deltaPos.x < 0)
                 {   
-                    rb.MovePosition(new Vector3(touch.deltaPosition.x,0,0) * speed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
+                    rb.MovePosition(new Vector3(touch.deltaPosition.x,0,0) * horizontalSpeed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
                     anim.SetFloat(xRef, -1);
                     print("sol");
                 }
                 else
                 {
-                    rb.MovePosition(new Vector3(touch.deltaPosition.x, 0, 0) * speed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
+                    rb.MovePosition(new Vector3(touch.deltaPosition.x, 0, 0) * horizontalSpeed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
                     anim.SetFloat(xRef, 1);
                     print("sag");
                 }     
