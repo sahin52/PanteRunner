@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class horizontalObstacleScript : MonoBehaviour
+public class horizontalObstacleScript : MonoBehaviour,IGameManagement
 {
-    [SerializeField] private bool isToLeft = false;
+    private bool isToLeft = false;
     [SerializeField] private float speed = 1f;
 
-
+    bool mustMove = false;
 
 
     private float direction;
@@ -27,7 +27,8 @@ public class horizontalObstacleScript : MonoBehaviour
     
     void FixedUpdate()
     {
-        rb.MovePosition((Vector3.left * direction * speed) + transform.position);
+        if(mustMove)
+            rb.MovePosition((Vector3.left * direction * speed) + transform.position);
     }
     void Update()
     {
@@ -40,5 +41,35 @@ public class horizontalObstacleScript : MonoBehaviour
         {
             direction = -1f;
         }
+    }
+
+    public void OnStart()
+    {
+        mustMove = false;
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnPlay()
+    {
+        mustMove = true;
+        //   throw new System.NotImplementedException();
+    }
+
+    public void OnPause()
+    {
+        mustMove = false;
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnLose()
+    {
+        mustMove = false;
+        //throw new System.NotImplementedException();
+    }
+
+    public void OnFinish()
+    {
+        mustMove = false;
+        //throw new System.NotImplementedException();
     }
 }

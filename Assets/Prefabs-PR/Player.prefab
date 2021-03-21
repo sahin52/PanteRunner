@@ -860,10 +860,11 @@ GameObject:
   - component: {fileID: 5893681911776771151}
   - component: {fileID: 5893681911776771146}
   - component: {fileID: 5893681911776771147}
-  - component: {fileID: 5893681911776771149}
+  - component: {fileID: 1039095306}
+  - component: {fileID: 1039095307}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -930,11 +931,16 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'metarig'\n\tTransform 'thigh.R'\n\tTransform
+    'shin.L'\n\tTransform 'upper_arm.L'\n\tTransform 'spine.001'\n\tTransform 'forearm.R'\n\tTransform
+    'shoulder.R'\n\tTransform 'spine.002'\n\tTransform 'spine.003'\n\tTransform 'upper_arm.R'\n\tand
+    more ...\n\tFrom animation clip 'Jump'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5893681911776771149
+--- !u!114 &1039095306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -943,36 +949,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6704726974089412881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d56ed521a1bcdc478b1de703e8d929b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4200ad0084dfc49468abf65efd621949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.72
-  forwardSpeed: 0.37
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  gameManager: {fileID: 0}
+--- !u!114 &1039095307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6704726974089412881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabbc68409e834e46ae218427eb81d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upwardsSpeed: 450
 --- !u!1 &7034875086140219316
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes-PR/MainScreen.unity
     guid: fef63df8af72e4e49a1cbbd6ebc1593d
   - enabled: 1
-    path: Assets/Scenes-PR/SolePlayingScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes-PR/MainSinglePlayingScene.unity
+    guid: a78e74292ad5edf4b8ef9ffd5b3db7e8
   - enabled: 1
     path: Assets/Scenes-PR/PaintBox.unity
     guid: 666d08d3e1bba734f80259263b48f918
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes-PR/PaintWall.unity
     guid: 3c341b8c35bd382439f7c6bf6c0457de
+  - enabled: 1
+    path: Assets/Scenes-PR/SolePlayingScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

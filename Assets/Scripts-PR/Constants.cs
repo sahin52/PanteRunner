@@ -14,4 +14,11 @@ public class Constants
     {
         public static string Volume = "Volume";
     }
+    public static class Animation
+    {
+        public static string X = "X";
+        public static string Y = "Y";
+        public static string Jump = "Jump";
+        public static string Slide = "Slide";
+    }
 }

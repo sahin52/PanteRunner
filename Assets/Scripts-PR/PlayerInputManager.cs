@@ -75,12 +75,12 @@ public class PlayerInputManager : MonoBehaviour,IInputManager
 
     private void HandleLeftRight()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             left_right = -1f;
             return;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)){
+        else if (Input.GetKey(KeyCode.RightArrow)){
             left_right = 1f;
             return;
         }
@@ -89,13 +89,13 @@ public class PlayerInputManager : MonoBehaviour,IInputManager
             var touch = Input.GetTouch(0);
             if(touch.phase == TouchPhase.Moved)
             {
-                left_right = touch.deltaPosition.x;
+                left_right = touch.deltaPosition.x / Screen.width * 5;
             }
             return;
         }
         if (Input.GetMouseButton(0))
         {
-            left_right = mouseDeltaPosition.x;
+            left_right = mouseDeltaPosition.x / Screen.width * 5;
             return;
         }
         left_right = 0f;
