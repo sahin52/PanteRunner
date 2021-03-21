@@ -76,4 +76,9 @@ public class UpRightButtonScript : MonoBehaviour,IGameManagement
         button.gameObject.SetActive(false);
         //throw new System.NotImplementedException();
     }
+
+    public void OnFinishLinePassed()
+    {
+        //throw new System.NotImplementedException();
+    }
 }

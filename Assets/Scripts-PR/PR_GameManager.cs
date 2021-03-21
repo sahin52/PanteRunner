@@ -36,6 +36,12 @@ public class PR_GameManager : MonoBehaviour
         {
             textForDisplayingPercentage.text = percentage.ToString();
         }
+        if(percentage >= 1f && gameStarted)
+        {
+            percentage = 0f;
+            gameStarted = false;
+            gameManager.onFinish();
+        }
     }
 
     //public void Restart()
@@ -85,6 +91,11 @@ public class PR_GameManager : MonoBehaviour
             temp.OnLose();
         }
     }
-
-
+    public void onFinishLinePassed()
+    {
+        foreach (var temp in objectsAttachedToGameManagement)
+        {
+            temp.OnFinishLinePassed();
+        }
+    }
 }

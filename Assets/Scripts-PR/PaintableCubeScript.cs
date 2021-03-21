@@ -7,6 +7,8 @@ public class PaintableCubeScript : MonoBehaviour
     Color[] pixels;
     public Text textForShowingPercentage;
     PR_GameManager gameManager;
+    private float percentage;
+    private bool isDone = false;
     void Start()
     {
         gameManager = FindObjectOfType<PR_GameManager>();
@@ -20,9 +22,20 @@ public class PaintableCubeScript : MonoBehaviour
     //}
     void Update()
     {
+        if (isDone)
+            return;
         Paint();
         if(gameManager)
             gameManager.percentage = CalculatePercentage();
+        if(percentage >= 1f)
+        {
+            isDone = true;
+            percentage = 0f;
+            if (gameManager)
+                gameManager.percentage = 1f;
+            
+            Destroy(gameObject, 1);
+        }
     }
 
     public float CalculatePercentage()
@@ -36,6 +49,7 @@ public class PaintableCubeScript : MonoBehaviour
                 reds++;
             }
         }
+        percentage = (float)reds / (float)len;
         return (float)reds / (float)len;
         //throw new NotImplementedException();
     }
@@ -58,31 +72,31 @@ public class PaintableCubeScript : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            print("there is touch");
+           // print("there is touch");
             return Input.GetTouch(0).position;
         }
         if (Input.GetMouseButton(0))
         {
-            print("there is mouse button down");
+            //print("there is mouse button down");
             return Input.mousePosition;
         }
-        print("no input");
+        //print("no input");
         return Vector2.zero;
     }
     void Paint()
     {
-        print("painting");
+        //print("painting");
         var inputPoint = getInputPoint();
         if(inputPoint.x == Vector2.zero.x && inputPoint.y == Vector2.zero.y)
         {
-            print("no input");
+            //print("no input");
             return;
         }
         RaycastHit hit;
 
         if (!Physics.Raycast(cam.ScreenPointToRay(inputPoint), out hit))
         {
-            print("didnt hit");
+            //print("didnt hit");
             return;
         }
 
@@ -92,10 +106,10 @@ public class PaintableCubeScript : MonoBehaviour
 
         if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial.mainTexture == null || meshCollider == null)
         {
-            print("bisi nulldidnt hit");
+            //print("bisi nulldidnt hit");
             print(rend);
             print(rend.sharedMaterial);
-            print(rend.sharedMaterial.mainTexture);
+            //print(rend.sharedMaterial.mainTexture);
             print(meshCollider);
 
             return;
@@ -120,7 +134,7 @@ public class PaintableCubeScript : MonoBehaviour
 
     private void PaintAroundPixel(ref Texture2D tex,ref  Vector2 pixelUV)
     {
-        print("Paint Arund Pixel");
+        //print("Paint Arund Pixel");
         pixels = tex.GetPixels();
         
         
@@ -155,7 +169,7 @@ public class PaintableCubeScript : MonoBehaviour
         tex.SetPixels(pixels);
         //tex.SetPixel((int)pixelUV.x, (int)pixelUV.y, Color.red);
         tex.Apply();
-        print("applied");
+        //print("applied");
     }
     private void paintPixel(Texture2D tex, Vector2 pixelUV)
     {

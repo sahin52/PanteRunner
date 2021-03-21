@@ -24,13 +24,15 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
 
     void startGame()
     {
+        print("Restart game - startGameFunc");
         PR_GameManager.gameManager.onStart();
     }
     void continueGame()
     {
-//#if UNITY_EDITOR
-//        UnityEditor.EditorApplication.isPaused = true;
-//#endif
+        //#if UNITY_EDITOR
+        //        UnityEditor.EditorApplication.isPaused = true;
+        //#endif
+        print("Restart Game Button-continue Game");
         PR_GameManager.gameManager.onPlay();
 
 
@@ -86,4 +88,9 @@ public class RestartGameButtonScript : MonoBehaviour,IGameManagement
     //throw new System.NotImplementedException();
     }
 
+    public void OnFinishLinePassed()
+    {
+        print("Restart Game Button OnFinishLinePassed");
+       // throw new System.NotImplementedException();
+    }
 }

@@ -48,22 +48,12 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
     {
         if (triggeringCollider.tag == Constants.Tags.Finish)
         {
-            GetToPaintState();
+            print("Finish Line Passed");
+            gameManager.onFinishLinePassed();
         }
     }
 
-    private void GetToPaintState()
-    {
-        //gameManager.onFinish();
-        //print("finished");
-        finishLinePassed = true;
-        StopAnimations();
-        transform.position = transform.position + Vector3.forward * 100;
-        var paintableBox = Instantiate(cubeToInstantiate, transform.position + Vector3.up* 6.228f + Vector3.forward* (-7.39f), Quaternion.identity);
-
-
-        //throw new NotImplementedException();
-    }
+    
 
     void OnCollisionEnter(Collision col)
     {
@@ -125,6 +115,8 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
         anim.enabled = true;
         transform.position = startingPos;
         StopAnimations();
+        playerInputs.jumpInput();
+        playerInputs.slideInput();
     }
 
     // Start is called before the first frame update
@@ -192,5 +184,24 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
     void Update()
     {
         
+    }
+
+    public void OnFinishLinePassed()
+    {
+        anim.enabled = true;
+        StopAnimations();
+        GetToPaintState();
+        // throw new NotImplementedException();
+    }
+    private void GetToPaintState()
+    {
+        //gameManager.onFinish();
+        //print("finished");
+        finishLinePassed = true;
+        StopAnimations();
+        transform.position = transform.position + Vector3.forward * 100;
+        transform.position = new Vector3(startingPos.x, startingPos.y, transform.position.z);
+        var paintableBox = Instantiate(cubeToInstantiate, transform.position + Vector3.up * 6.228f + Vector3.forward * (-7.39f), Quaternion.identity);
+        //throw new NotImplementedException();
     }
 }

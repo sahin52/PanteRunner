@@ -4,7 +4,7 @@
     void OnPlay();
     void OnPause();
     void OnLose();
-    //void OnFinishLinePassed();
+    void OnFinishLinePassed();
     void OnFinish();
 
 

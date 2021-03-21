@@ -166,4 +166,9 @@ public class PlayerController : MonoBehaviour,IGameManagement
         print("Player Controller On Finish");
         //throw new System.NotImplementedException();
     }
+
+    public void OnFinishLinePassed()
+    {
+       // throw new System.NotImplementedException();
+    }
 }

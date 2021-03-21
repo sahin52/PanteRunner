@@ -72,4 +72,10 @@ public class horizontalObstacleScript : MonoBehaviour,IGameManagement
         mustMove = false;
         //throw new System.NotImplementedException();
     }
+
+    public void OnFinishLinePassed()
+    {
+        //mustMove = false;
+        //throw new System.NotImplementedException();
+    }
 }
