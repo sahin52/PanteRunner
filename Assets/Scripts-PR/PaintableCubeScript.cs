@@ -1,16 +1,17 @@
-﻿using System;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.UI;
 public class PaintableCubeScript : MonoBehaviour
 {
     private Camera cam;
     public Texture2D filterTexture;
     Color[] pixels;
+    public Text textForShowingPercentage;
+    PR_GameManager gameManager;
     void Start()
     {
+        gameManager = FindObjectOfType<PR_GameManager>();
         cam = Camera.main;
         Clear();
-
     }
     //void FixedUpdate() 
     //{
@@ -20,7 +21,8 @@ public class PaintableCubeScript : MonoBehaviour
     void Update()
     {
         Paint();
-        print(CalculatePercentage());
+        if(gameManager)
+            gameManager.percentage = CalculatePercentage();
     }
 
     public float CalculatePercentage()

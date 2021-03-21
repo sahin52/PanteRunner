@@ -4,16 +4,16 @@ using System.Linq;
 public class PR_GameManager : MonoBehaviour
 {
     public bool gameStarted = false;
-    [SerializeField]
-    Text startButtonText;
-    [SerializeField]
-    Text endGameText;
-    [SerializeField]
-    Button finishGameButton;
-    [SerializeField]
-    PlayerController Player;
+    //[SerializeField]
+    //Text endGameText;
+    //[SerializeField]
+    //Button finishGameButton;
+    //[SerializeField]
+    //PlayerController Player;
 
     public static PR_GameManager gameManager;
+    public float percentage = 0f;
+    public Text textForDisplayingPercentage;
 
     IGameManagement[] objectsAttachedToGameManagement;
     // Start is called before the first frame update
@@ -24,24 +24,27 @@ public class PR_GameManager : MonoBehaviour
         print(a);
         objectsAttachedToGameManagement = a.ToArray();
         print("printe");
-        if (Player == null)
-            Player = FindObjectOfType<PlayerController>();
+        //if (Player == null)
+        //    Player = FindObjectOfType<PlayerController>();
         onStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (percentage > 0.00001f && textForDisplayingPercentage)
+        {
+            textForDisplayingPercentage.text = percentage.ToString();
+        }
     }
 
-    public void Restart()
-    {
-        Player.Restart();
-        finishGameButton.gameObject.SetActive(false);
-        endGameText.text = "";
-        gameStarted = true;
-    }
+    //public void Restart()
+    //{
+    //    Player.Restart();
+    //    finishGameButton.gameObject.SetActive(false);
+    //    endGameText.text = "";
+    //    gameStarted = true;
+    //}
     public void onStart()
     {
         gameStarted = false;

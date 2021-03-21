@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,10 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
 
     PR_GameManager gameManager;
     private IInputManager playerInputs;
+
+    bool finishLinePassed=false;
+
+    public GameObject cubeToInstantiate;
     void Awake()
     {
         playerInputs = GetComponent<IInputManager>();
@@ -43,10 +48,23 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
     {
         if (triggeringCollider.tag == Constants.Tags.Finish)
         {
-            gameManager.onFinish();
-            print("finished");
+            GetToPaintState();
         }
     }
+
+    private void GetToPaintState()
+    {
+        //gameManager.onFinish();
+        //print("finished");
+        finishLinePassed = true;
+        StopAnimations();
+        transform.position = transform.position + Vector3.forward * 100;
+        var paintableBox = Instantiate(cubeToInstantiate, transform.position + Vector3.up* 6.228f + Vector3.forward* (-7.39f), Quaternion.identity);
+
+
+        //throw new NotImplementedException();
+    }
+
     void OnCollisionEnter(Collision col)
     {
         print("collided with " + col.collider.tag);
@@ -103,6 +121,7 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
 
     public void OnStart()
     {
+        finishLinePassed = false;
         anim.enabled = true;
         transform.position = startingPos;
         StopAnimations();
@@ -112,7 +131,7 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
 
     void FixedUpdate()
     {
-        if (gameManager.gameStarted)
+        if (gameManager.gameStarted && !this.finishLinePassed)
         {
             Move();
         }
