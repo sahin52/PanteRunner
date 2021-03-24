@@ -965,6 +965,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upwardsSpeed: 450
+  cubeToInstantiate: {fileID: 308053392819467236, guid: 5803d6b0dec33104688212c5ba400a35,
+    type: 3}
 --- !u!1 &7034875086140219316
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Constants
     {
         public static string Ground = "Ground";
         public static string Obstacle = "Obstacle";
+        public static string Player = "Player";
         public static string Finish = "Finish";
     }
     public static class Prefs

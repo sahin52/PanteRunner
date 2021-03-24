@@ -52,9 +52,6 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
             gameManager.onFinishLinePassed();
         }
     }
-
-    
-
     void OnCollisionEnter(Collision col)
     {
         print("collided with " + col.collider.tag);
