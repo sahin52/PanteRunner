@@ -16,6 +16,8 @@ public class BotScenePlayerController : MonoBehaviour
     [SerializeField] float forwardSpeed = 1f;
     [SerializeField] float speedForTap = 1f;
 
+    [SerializeField] private float horizontalSpeed = 20f;
+
     Animator anim;
     int yRef = Animator.StringToHash("Y"); // 1 ise kosar, 0 ise durur
     int xRef = Animator.StringToHash("X"); //-1 ise left, 1 ise right
@@ -69,7 +71,7 @@ public class BotScenePlayerController : MonoBehaviour
     {
         Vector3 nextDestination = Vector3.forward * forwardSpeed;
 
-        nextDestination += Vector3.right * inputs.leftRight();
+        nextDestination += Vector3.right * inputs.leftRight()*horizontalSpeed;
 
         anim.SetFloat(xRef, inputs.leftRight());
         anim.SetFloat(yRef, 1);

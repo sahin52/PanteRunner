@@ -9,7 +9,7 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
     Rigidbody rb;
     BoxCollider boxCollider;
 
-    private float horizontalSpeed = 3f;
+    [SerializeField]private float horizontalSpeed = 10f;
     private readonly float forwardSpeed = 0.5f;
     public float upwardsSpeed = 300f;
     int yRef = Animator.StringToHash("Y"); // 1 ise kosar, 0 ise durur
@@ -146,7 +146,7 @@ public class MainPlayerControlScript : MonoBehaviour,IGameManagement
             var stopLean = StopAnimAfterLean(0.8f);
             StartCoroutine(stopLean);
         }
-        rb.MovePosition(Vector3.forward*forwardSpeed + transform.position + playerInputs.leftRight()*Vector3.right);
+        rb.MovePosition(Vector3.forward*forwardSpeed + transform.position + playerInputs.leftRight()*Vector3.right*horizontalSpeed);
         //        rb.MovePosition(new Vector3(touch.deltaPosition.x, 0, 0) * horizontalSpeed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
         //        anim.SetFloat(xRef, -1);
         //        rb.MovePosition(new Vector3(touch.deltaPosition.x, 0, 0) * horizontalSpeed / Screen.width + transform.position + Vector3.forward * forwardSpeed);
