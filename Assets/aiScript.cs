@@ -96,16 +96,26 @@ public class aiScript : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
+        if (finished)
+            return;
         //print("triggered with "+ col.gameObject.tag);
         if (col.gameObject.tag == Constants.Tags.Finish)
         {
             finished = true;
             print("triggered with finishline");
             Stop();
+            transform.position = transform.position + Vector3.forward * 10;
+        }
+        if(col.gameObject.tag == Constants.Tags.Obstacle)
+        {
+            Restart();
+            Strengthen();
         }
     }
     void OnCollisionEnter(Collision col)
     {
+        if (finished)
+            return;
         print("collided"+col.gameObject.tag);
         if(col.gameObject.tag == Constants.Tags.Obstacle)
         {
@@ -114,6 +124,7 @@ public class aiScript : MonoBehaviour
         }
         if(col.gameObject.tag == Constants.Tags.Finish)
         {
+            finished = true;
             print("collided with finishline");
             Stop();
         }

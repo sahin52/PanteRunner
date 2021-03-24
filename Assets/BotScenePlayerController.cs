@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class BotScenePlayerController : MonoBehaviour
     Rigidbody rb;
     [SerializeField] bool forcePlay = true;
     [SerializeField] float forwardSpeed = 1f;
+    [SerializeField] float speedForTap = 1f;
 
     Animator anim;
     int yRef = Animator.StringToHash("Y"); // 1 ise kosar, 0 ise durur
@@ -22,6 +24,7 @@ public class BotScenePlayerController : MonoBehaviour
 
     Vector3 startingPos;
 
+    bool finishLinePassed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,26 +35,58 @@ public class BotScenePlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         startingPos = transform.position;
     }
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         if (gameManager.isGamePlaying || forcePlay)
         {
             Move();
         }
+        else if (finishLinePassed)
+        {
+            Stop();
+            PlayWinningAnimation();
+        }
         else
         {
             StopAnimations();
         }
     }
+    void Stop()
+    {
+        rb.velocity = Vector3.zero;
+    }
+    void PlayWinningAnimation()
+    {
+        StopAnimations();
+        //    anim.SetFloat(xRef, -1);
+        //    anim.SetFloat(yRef, -1);
+        //    anim.SetFloat(jumpRef, -1);
+        //    anim.SetFloat(leanRef, -1);
+        //anim.SetFloat("Victory", 1);
+    }
     void Move()
     {
-        Vector3 nextDestination = Vector3.forward*forwardSpeed;
+        Vector3 nextDestination = Vector3.forward * forwardSpeed;
 
-        nextDestination += new Vector3(inputs.leftRight(),0,0);
-        rb.MovePosition(transform.position + nextDestination);
+        nextDestination += Vector3.right * inputs.leftRight();
+
         anim.SetFloat(xRef, inputs.leftRight());
         anim.SetFloat(yRef, 1);
+
+        try
+        {
+
+            if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+            {
+                nextDestination += Vector3.forward * speedForTap;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("There is error!" + e);
+        }
+        rb.MovePosition(transform.position + nextDestination);
     }
     void StopAnimations()
     {
@@ -59,12 +94,30 @@ public class BotScenePlayerController : MonoBehaviour
         anim.SetFloat(yRef, 0);
         anim.SetFloat(jumpRef, -1);
         anim.SetFloat(leanRef, -1);
+        anim.SetFloat("Victory", 0);
     }
     void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == Constants.Tags.Obstacle)
+        if (col.gameObject.tag == Constants.Tags.Obstacle)
         {
             Restart();
+        }
+        if (col.gameObject.tag == Constants.Tags.Finish)
+        {
+            print("finish line collision");
+            gameManager.isGamePlaying = false;
+            finishLinePassed = true;
+            gameManager.EndGame();
+        }
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == Constants.Tags.Finish)
+        {
+            print("finish line trigger");
+            gameManager.isGamePlaying = false;
+            finishLinePassed = true;
+            gameManager.EndGame();
         }
     }
     void Restart()
